@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('publics', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('nik');
-            $table->string('photo');
-            $table->string('address');
-            $table->string('phone');
+            $table->string('title');
+            $table->text('content');
+            $table->string('source');
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('publics');
+        Schema::dropIfExists('news');
     }
 };

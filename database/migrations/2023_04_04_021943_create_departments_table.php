@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('bidang');
             $table->string('leader_name');
             $table->string('address');
-            $table->string('phone');
+            $table->string('telephone');
             $table->timestamps();
         });
     }

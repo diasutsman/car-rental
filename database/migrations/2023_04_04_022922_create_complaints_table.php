@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('publics', function (Blueprint $table) {
+        Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('nik');
-            $table->string('photo');
-            $table->string('address');
-            $table->string('phone');
+            $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->text('complaint');
+            $table->enum('status', ['submitted', 'processed', 'completed', 'rejected'])->default('submitted');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('publics');
+        Schema::dropIfExists('complaints');
     }
 };
