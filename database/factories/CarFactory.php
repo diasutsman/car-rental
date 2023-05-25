@@ -21,7 +21,7 @@ class CarFactory extends Factory
             'name' => 'Car ' . $this->faker->unique()->numberBetween(1, 100),
             'category_id' => $this->faker->numberBetween(1, Category::count()),
             'color' => $this->faker->colorName(),
-            'license_plate' => $this->faker->bothify('??-####-##'),
+            'license_plate' => $this->faker->bothify('?? #### ??'),
             'year' => $this->faker->year(),
             'tariff' => $this->faker->numberBetween(100000, 1000000),
         ];

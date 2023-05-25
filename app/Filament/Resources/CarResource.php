@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CarResource\Pages;
-use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Support\Str;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\CarResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CarResource\RelationManagers;
 
 class CarResource extends Resource
 {
@@ -24,28 +25,31 @@ class CarResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('category_id')
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
                     ->required(),
+                Forms\Components\TextInput::make('name')
+                    ->reactive()
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state)))
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('color')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\ColorPicker::make('color')
+                    ->required(),
                 Forms\Components\TextInput::make('license_plate')
                     ->required()
+                    ->regex('/^[A-Z]{1,2} \d{1,4} [A-Z]{2,3}$/')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('photo')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('year')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('photo')
+                    ->image(),
+                Forms\Components\DatePicker::make('year')
+                    ->displayFormat('Y')
+                    ->required(),
                 Forms\Components\TextInput::make('tariff')
                     ->required()
+                    ->numeric()
                     ->maxLength(255),
             ]);
     }
@@ -54,18 +58,13 @@ class CarResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category_id'),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('color'),
+                Tables\Columns\ColorColumn::make('color'),
                 Tables\Columns\TextColumn::make('license_plate'),
-                Tables\Columns\TextColumn::make('photo'),
+                Tables\Columns\ImageColumn::make('photo'),
                 Tables\Columns\TextColumn::make('year'),
                 Tables\Columns\TextColumn::make('tariff'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
             ])
             ->filters([
                 //
