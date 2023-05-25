@@ -24,7 +24,7 @@ class RentalResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('vehicle_id')
+                Forms\Components\TextInput::make('car_id')
                     ->required(),
                 Forms\Components\TextInput::make('customer_id')
                     ->required(),
@@ -43,7 +43,7 @@ class RentalResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('vehicle_id'),
+                Tables\Columns\TextColumn::make('car_id'),
                 Tables\Columns\TextColumn::make('customer_id'),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date(),
@@ -66,14 +66,14 @@ class RentalResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -81,5 +81,5 @@ class RentalResource extends Resource
             'create' => Pages\CreateRental::route('/create'),
             'edit' => Pages\EditRental::route('/{record}/edit'),
         ];
-    }    
+    }
 }

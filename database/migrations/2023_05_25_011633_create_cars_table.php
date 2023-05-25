@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicles', function (Blueprint $table) {
+        Schema::create('cars', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('slug')->unique();
             $table->string('name')->unique();
             $table->string('color');
             $table->string('license_plate');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('year');
             $table->string('tariff');
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('cars');
     }
 };

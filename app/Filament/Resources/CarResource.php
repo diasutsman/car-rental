@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VehicleResource\Pages;
-use App\Filament\Resources\VehicleResource\RelationManagers;
-use App\Models\Vehicle;
+use App\Filament\Resources\CarResource\Pages;
+use App\Filament\Resources\CarResource\RelationManagers;
+use App\Models\Car;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class VehicleResource extends Resource
+class CarResource extends Resource
 {
-    protected static ?string $model = Vehicle::class;
+    protected static ?string $model = Car::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-truck';
     protected static ?string $navigationGroup = 'Data Management';
@@ -88,9 +88,9 @@ class VehicleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVehicles::route('/'),
-            'create' => Pages\CreateVehicle::route('/create'),
-            'edit' => Pages\EditVehicle::route('/{record}/edit'),
+            'index' => Pages\ListCars::route('/'),
+            'create' => Pages\CreateCar::route('/create'),
+            'edit' => Pages\EditCar::route('/{record}/edit'),
         ];
     }
 }

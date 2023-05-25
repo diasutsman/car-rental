@@ -23,8 +23,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        Category::create([
-            'name' => '',
-        ]);
+        $carTypes = [
+            'SUV', 'Sedan', 'Hatchback', 'Sports car', 'Coupe', 'Convertible', 'Crossover', 'Minivan', 'Luxury car', 'Station Wagon', 'Roadster', 'Full-size car', 'Executive car', 'Compact MPV', 'Pony car', 'Microcar'
+    ];
+
+        foreach ($carTypes as $carType) {
+            Category::create([
+                'name' => $carType,
+            ]);
+        }
+
+        \App\Models\Car::factory(10)->create();
     }
 }

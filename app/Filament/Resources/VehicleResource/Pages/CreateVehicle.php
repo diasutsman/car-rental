@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\VehicleResource\Pages;
+namespace App\Filament\Resources\CarResource\Pages;
 
-use App\Filament\Resources\VehicleResource;
+use App\Filament\Resources\CarResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateVehicle extends CreateRecord
+class CreateCar extends CreateRecord
 {
-    protected static string $resource = VehicleResource::class;
+    protected static string $resource = CarResource::class;
 }
