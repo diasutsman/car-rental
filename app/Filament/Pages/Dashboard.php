@@ -14,12 +14,17 @@ class Dashboard extends BaseDashboard
 
     protected function getHeading(): string
     {
-        $username = auth()->user()->username;
-        return "{$username}'s Dashboard";
+        return $this->getNavigationLabel();
     }
 
     protected function getWidgets(): array
     {
-        return array_slice(Filament::getWidgets(), 0, 1);
+        if (auth()->user()->isAdmin()) {
+            return array_slice(Filament::getWidgets(), 0, 1);
+        }
+        return [
+            \App\Filament\Widgets\CarList::class,
+            \App\Filament\Widgets\CarDetail::class,
+        ];
     }
 }

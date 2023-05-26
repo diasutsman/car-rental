@@ -1,0 +1,12 @@
+<x-filament::widget class="justify-self-start">
+    @if ($car)
+        <x-filament::card class="sticky">
+            <h1>{{ $car->name }}</h1>
+            <img src="{{ asset($car->photo? 'storage/' . $car->photo : '') }}" alt="">
+            <div class="w-10 h-10 shadow-lg" style="background-color: {{ $car->color }};"></div>
+            <p>License Plate: <span>{{ $car->license_plate }}</span></p>
+            <p>Year: <span>{{ $car->year }}</span></p>
+            <p>Tariff: <span>{{ $car->tariff }}</span></p>
+        </x-filament::card>
+    @endif
+</x-filament::widget>
