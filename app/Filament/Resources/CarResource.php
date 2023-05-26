@@ -92,4 +92,9 @@ class CarResource extends Resource
             'edit' => Pages\EditCar::route('/{record}/edit'),
         ];
     }
+
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isAdmin();
+    }
 }

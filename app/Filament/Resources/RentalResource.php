@@ -82,4 +82,9 @@ class RentalResource extends Resource
             'edit' => Pages\EditRental::route('/{record}/edit'),
         ];
     }
+
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isAdmin();
+    }
 }

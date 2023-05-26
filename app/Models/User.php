@@ -47,4 +47,14 @@ class User extends Authenticatable implements HasName
     {
         return "{$this->username}";
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isCustomer()
+    {
+        return $this->role === 'customer';
+    }
 }
