@@ -5,6 +5,7 @@ namespace App\Providers;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 use Filament\Navigation\NavigationGroup;
+use Illuminate\Foundation\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Filament::serving(function () {
+            Filament::registerViteTheme('resources/css/app.css');
+
             Filament::registerNavigationGroups([
                 NavigationGroup::make()
                     ->label('Data Management')

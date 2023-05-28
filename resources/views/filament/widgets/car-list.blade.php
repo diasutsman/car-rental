@@ -1,6 +1,6 @@
 <x-filament::widget class="flex flex-col gap-4">
     @foreach ($cars as $car)
-    <x-filament::card class="break-words" wire:click="$emit('showCar', '{{ $car->slug }}')">
+    <x-filament::card class="break-words cursor-pointer" wire:click="$emit('showCar', '{{ $car->slug }}')">
         <h1>{{ $car->name }}</h1>
         <img src="{{ asset($car->photo? 'storage/' . $car->photo : '') }}" alt="">
         <div class="w-10 h-10 shadow-lg" style="background-color: {{ $car->color }};"></div>
