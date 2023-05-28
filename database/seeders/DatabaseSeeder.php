@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        \App\Models\User::create([
+            'username' => 'user1',
+            'email' => 'user1@gmail.com',
+            'role' => 'customer',
+            'password' => bcrypt('password'),
+        ]);
+
         $carTypes = [
             'SUV', 'Sedan', 'Hatchback', 'Sports car', 'Coupe', 'Convertible', 'Crossover', 'Minivan', 'Luxury car', 'Station Wagon', 'Roadster', 'Full-size car', 'Executive car', 'Compact MPV', 'Pony car', 'Microcar'
     ];
