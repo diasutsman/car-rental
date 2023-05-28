@@ -12,7 +12,6 @@ class CarList extends Widget
 
     protected function getViewData(): array
     {
-        Log::info('test');
         return [
             'cars' => \App\Models\Car::all(),
         ];

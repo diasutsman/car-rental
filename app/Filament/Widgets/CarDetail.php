@@ -12,18 +12,17 @@ class CarDetail extends Widget
 
     protected $listeners = ['showCar'];
 
-    public $viewedCar;
+    public $car;
 
     public function showCar(Car $car)
     {
-        Log::info($car);
-        $this->viewedCar = $car;
+        $this->car = $car;
     }
 
     protected function getViewData(): array
     {
         return [
-            'car' => $this->viewedCar,
+            'car' => $this->car,
         ];
     }
 }
