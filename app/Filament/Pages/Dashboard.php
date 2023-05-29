@@ -19,12 +19,6 @@ class Dashboard extends BaseDashboard
 
     protected function getWidgets(): array
     {
-        if (auth()->user()->isAdmin()) {
-            return array_slice(Filament::getWidgets(), 0, 1);
-        }
-        return [
-            \App\Filament\Widgets\CarList::class,
-            \App\Filament\Widgets\CarDetail::class,
-        ];
+        return Filament::getWidgets();
     }
 }
