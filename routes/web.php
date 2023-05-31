@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NavigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,21 +16,9 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/fleet', function () {
-    return view('fleet');
-})->name('fleet');
-
-Route::get('/offers', function () {
-    return view('offers');
-})->name('offers');
-
-Route::get('/blog-posts', function () {
-    return view('blogs');
-})->name('blogs');
+Route::get('/', [NavigationController::class, 'home'])->name('home');
+Route::get('/fleet', [NavigationController::class, 'fleet'])->name('fleet');
+Route::get('/blog-posts', [NavigationController::class, 'blogs'])->name('blogs');
 
 Route::get('/blog-post', function () {
     return view('blog-details');

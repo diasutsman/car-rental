@@ -19,7 +19,6 @@
                 <li @if (Route::is('home')) class="active" @endif><a href="{{ route('home') }}">Home</a></li>
                 <li @if (Route::is('fleet')) class="active" @endif><a href="{{ route('fleet') }}">Fleet</a>
                 </li>
-                <li @if (Route::is('offers')) class="active" @endif><a href="{{ route('offers') }}">Offers</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Exception;
+use App\Models\Car;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 
@@ -32,7 +34,7 @@ class DatabaseSeeder extends Seeder
 
         $carTypes = [
             'SUV', 'Sedan', 'Hatchback', 'Sports car', 'Coupe', 'Convertible', 'Crossover', 'Minivan', 'Luxury car', 'Station Wagon', 'Roadster', 'Full-size car', 'Executive car', 'Compact MPV', 'Pony car', 'Microcar'
-    ];
+        ];
 
         foreach ($carTypes as $carType) {
             Category::create([
@@ -40,6 +42,25 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        \App\Models\Car::factory(10)->create();
+        try {
+            $path = "storage/app/public/car-images/";
+            $images = collect();
+            if ($handle = opendir($path)) {
+                while (false !== ($file = readdir($handle))) {
+                    if ('.' === $file) continue;
+                    if ('..' === $file) continue;
+                    $filename = 'car-images/' . $file;
+                    $images->push($file);
+
+                    Car::factory(1)->create([
+                        'photo' => $filename,
+                    ]);
+                    
+                }
+                closedir($handle);
+            }
+        } catch (Exception $e) {
+            Car::factory(10)->create();
+        }
     }
 }
