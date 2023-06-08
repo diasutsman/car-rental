@@ -17,6 +17,10 @@ class Car extends Model
         'updated_at',
     ];
 
+    protected $casts = [
+        'tariff' => 'integer',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

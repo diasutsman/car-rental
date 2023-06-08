@@ -750,6 +750,38 @@ https://templatemo.com/tm-516-known
   }
   
 
+  #book-form {
+    padding: 1em 0;
+  }
+
+  #book-form .col-md-12,
+  #book-form .col-md-4 {
+    padding-left: 0;
+  }
+  
+  .form .form-control,
+  #book-form .form-control {
+    border: 0;
+    border-radius: 5px;
+    box-shadow: none;
+    margin: 10px 0;
+  }
+
+  #book-form input {
+    height: 50px;
+  }
+
+  #book-form input[type='submit'] {
+    border-radius: 50px;
+    border: 1px solid transparent;
+  }
+
+  #book-form input[type='submit']:hover {
+    background: transparent;
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+
 
 
   /*---------------------------------------
@@ -1021,6 +1053,12 @@ https://templatemo.com/tm-516-known
   .section-btn.btn-primary:active,
   .section-btn.btn-primary:focus:active,
   .section-btn.btn-primary:hover {background: #29ca8e; color: #fff; border-color: #29ca8e; }
+
+  .section-btn.btn-danger { border-color: #ca3129; color: #ca3129; }
+  .section-btn.btn-danger:focus,
+  .section-btn.btn-danger:active,
+  .section-btn.btn-danger:focus:active,
+  .section-btn.btn-danger:hover {background: #ca3129; color: #fff; border-color: #ca3129; }
 
   .courses-thumb .lead,
   .team-info .lead { margin-bottom: 10px; }

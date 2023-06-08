@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\NavigationController;
 
 /*
@@ -17,7 +18,11 @@ use App\Http\Controllers\NavigationController;
 */
 
 Route::get('/', [NavigationController::class, 'home'])->name('home');
-Route::get('/fleet', [NavigationController::class, 'fleet'])->name('fleet');
+Route::resource('cars', CarController::class);
+
+Route::resource('rentals', RentalController::class)->middleware('auth')->except(['store']);
+Route::post('/book/{car}', [RentalController::class, 'store'])->name('book-car');
+
 Route::get('/blog-posts', [NavigationController::class, 'blogs'])->name('blogs');
 
 Route::get('/blog-post', function () {

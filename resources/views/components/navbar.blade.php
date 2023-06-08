@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-nav-first">
                 <li @if (Route::is('home')) class="active" @endif><a href="{{ route('home') }}">Home</a></li>
-                <li @if (Route::is('fleet')) class="active" @endif><a href="{{ route('fleet') }}">Fleet</a>
+                <li @if (Route::is('cars')) class="active" @endif><a href="{{ route('cars.index') }}">Cars</a>
                 </li>
                 </li>
                 <li class="dropdown">
@@ -39,6 +39,31 @@
                 </li>
                 <li @if (Route::is('contact')) class="active" @endif><a href="{{ route('contact') }}">Contact
                         Us</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                @auth
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{ auth()->user()->username }}<span class="caret"></span></a>
+
+                        <ul class="dropdown-menu">
+                            <li @if (Route::is('my-rentals')) class="active" @endif>
+                                <a href="{{ route('rentals.index') }}">My Rentals</a>
+                            </li>
+
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <input type="submit" value="Logout" class="btn btn-danger btn-block">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Sign Up</a></li>
+                @endauth
             </ul>
         </div>
 

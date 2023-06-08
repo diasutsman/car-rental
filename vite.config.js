@@ -11,7 +11,6 @@ export default defineConfig({
                 "resources/css/owl.carousel.css",
                 "resources/css/owl.theme.default.min.css",
                 "resources/css/style.css",
-
                 "resources/js/app.js",
                 "resources/js/bootstrap.min.js",
                 "resources/js/custom.js",

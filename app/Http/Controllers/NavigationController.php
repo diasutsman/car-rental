@@ -11,14 +11,7 @@ class NavigationController extends Controller
     {
         return view('home');
     }
-
-    public function fleet()
-    {
-        return view('fleet', [
-            'cars' => Car::all()
-        ]);
-    }
-
+    
     public function blogs()
     {
         return view('blogs');
