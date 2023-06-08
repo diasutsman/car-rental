@@ -6,10 +6,11 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements HasName
+class User extends Authenticatable implements HasName, FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -48,6 +49,11 @@ class User extends Authenticatable implements HasName
         return "{$this->username}";
     }
 
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class);
+    }
+
     public function isAdmin()
     {
         return $this->role === 'admin';
@@ -56,5 +62,10 @@ class User extends Authenticatable implements HasName
     public function isCustomer()
     {
         return $this->role === 'customer';
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->isAdmin();
     }
 }

@@ -48,7 +48,6 @@ class RentalController extends Controller
 
     public function destroy(Rental $rental)
     {
-        dd($rental);
         $rental->delete();
         return redirect()->route('rentals.index')->with('success', 'Rental has been deleted!');
     }
