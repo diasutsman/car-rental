@@ -13,7 +13,8 @@ class RentalController extends Controller
     public function index()
     {
         return view('rental.index', [
-            'rentals' => Rental::with('car')->where('user_id', auth()->user()->id)->get(),
+            'rentals' => Rental::join('cars', 'rentals.car_id', '=', 'cars.id')
+                ->where('user_id', auth()->user()->id)->get(),
         ]);
     }
 
@@ -21,9 +22,9 @@ class RentalController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'start_date' => 'required|date',
-            'end_date' => 'required|date|',
-            'pickup_location' => 'required',
-            'return_location' => 'required',
+            'end_date' => 'required|date',
+            'pickup_location' => 'required|string',
+            'return_location' => 'required|string',
         ]);
 
         if ($validator->fails()) {

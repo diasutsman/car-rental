@@ -31,26 +31,26 @@
                             <div class="courses-thumb courses-thumb-secondary">
                                 <div class="courses-top">
                                     <div class="courses-image">
-                                        <img src="@if ($rental->car->photo) {{ asset('storage/' . $rental->car->photo) }}
+                                        <img src="@if ($rental->photo) {{ asset('storage/' . $rental->photo) }}
                                     @else
                                     {{ asset('images/product-1-720x480.jpg') }} @endif "
                                             class="img-responsive" alt="">
                                     </div>
                                     <div class="courses-date">
                                         <span title="passegengers"><i class="fa fa-user"></i>
-                                            {{ $rental->car->seats }}</span>
+                                            {{ $rental->seats }}</span>
                                         <span title="luggages"><i class="fa fa-briefcase"></i>
-                                            {{ $rental->car->luggages }}</span>
-                                        <span title="doors"><i class="fa fa-sign-out"></i> {{ $rental->car->doors }}</span>
+                                            {{ $rental->luggages }}</span>
+                                        <span title="doors"><i class="fa fa-sign-out"></i> {{ $rental->doors }}</span>
                                         <span title="transmission"><i class="fa fa-cog"></i>
-                                            {{ str($rental->car->transmission)->substr(0, 1)->upper() }}</span>
+                                            {{ str($rental->transmission)->substr(0, 1)->upper() }}</span>
                                     </div>
                                 </div>
 
                                 <div class="courses-detail">
-                                    <h3><a href="{{ route('cars.index') }}">{{ str($rental->car->size)->ucfirst() }}:
-                                            {{ str($rental->car->name)->ucfirst() }}</a></h3>
-                                    <p class="lead"><small>from</small> <strong>{{ $rental->car->tariff }}</strong>
+                                    <h3><a href="{{ route('cars.index') }}">{{ str($rental->size)->ucfirst() }}:
+                                            {{ str($rental->name)->ucfirst() }}</a></h3>
+                                    <p class="lead"><small>from</small> <strong>{{ $rental->tariff }}</strong>
                                         <small>per
                                             day</small>
                                     </p>
@@ -60,7 +60,7 @@
                                 <div class="courses-info">
                                     <button type="button" data-toggle="modal" data-target=".bs-example-modal"
                                         class="section-btn btn btn-primary btn-block"
-                                        @click="id = '{{ $rental->car->id }}';car = {{ $rental->car }}">Return
+                                        @click="id = '{{ $rental->id }}';car = {{ $rental }}">Return
                                         Now</button>
                                 </div>
                             </div>

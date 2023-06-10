@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rentals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('car_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreignId('car_id')->unique()->references('id')->on('cars')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
