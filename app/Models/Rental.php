@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Car;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Rental extends Model
 {
@@ -22,5 +23,20 @@ class Rental extends Model
     public function car()
     {
         return $this->belongsTo(Car::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getSubtotalAttribute()
+    {
+        return $this->car->tariff * ($this->start_date->diffInDays($this->end_date) + 1);
+    }
+
+    public function getFineAttribute()
+    {
+        return $this->getSubtotalAttribute() * 0.1 * $this->end_date->diffInDays(now());
     }
 }

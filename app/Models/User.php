@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Customer;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Notifications\Notifiable;
@@ -52,6 +53,11 @@ class User extends Authenticatable implements HasName, FilamentUser
     public function rentals()
     {
         return $this->hasMany(Rental::class);
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
     }
 
     public function isAdmin()

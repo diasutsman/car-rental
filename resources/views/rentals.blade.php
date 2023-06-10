@@ -69,7 +69,7 @@
                                         $subtotal = ($rental->start_date->diffInDays($rental->end_date) + 1) * intval($rental->tariff);
                                         $overtimePay = 0;
                                     @endphp
-                                    @if ($rental->end_date->diffInDays(now()) > 0)
+                                    @if ($rental->end_date->diffInDays(now()) > 0 && $rental->end_date->isPast())
                                         @php
                                             $daysPassed = $rental->end_date->diffInDays(now());
                                             $overtimePay = 0.1 * $subtotal * $daysPassed;

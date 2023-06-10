@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use Exception;
 use App\Models\Car;
 use App\Models\Category;
+use App\Models\Customer;
+use App\Models\Rental;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,18 +20,36 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::create([
+        $user1 = \App\Models\User::create([
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'role' => 'admin',
             'password' => bcrypt('password'),
         ]);
 
-        \App\Models\User::create([
+        Customer::create([
+            'user_id' => $user1->id,
+            'photo' => 'images/user1.jpg',
+            'id_card_photo' => 'images/user1.jpg',
+            'driving_license_photo' => 'images/user1.jpg',
+            'address' => 'Jl. Raya Kampus Udayana',
+            'phone_number' => '081234567890',
+        ]);
+
+        $user2 = \App\Models\User::create([
             'username' => 'user1',
             'email' => 'user1@gmail.com',
             'role' => 'customer',
             'password' => bcrypt('password'),
+        ]);
+
+        Customer::create([
+            'user_id' => $user2->id,
+            'photo' => 'images/user1.jpg',
+            'id_card_photo' => 'images/user1.jpg',
+            'driving_license_photo' => 'images/user1.jpg',
+            'address' => 'Jl. Raya Kampus Udayana',
+            'phone_number' => '081234567890',
         ]);
 
         $carTypes = [
@@ -61,6 +81,7 @@ class DatabaseSeeder extends Seeder
             }
         } catch (Exception $e) {
             Car::factory(10)->create();
+            Rental::factory(10)->create();
         }
     }
 }

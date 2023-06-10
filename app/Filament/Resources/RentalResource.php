@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RentalResource\Pages;
-use App\Filament\Resources\RentalResource\RelationManagers;
-use App\Models\Rental;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Rental;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\RentalResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\RentalResource\RelationManagers;
+use Illuminate\Database\Eloquent\Model;
 
 class RentalResource extends Resource
 {
@@ -39,17 +40,32 @@ class RentalResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with(['car', 'user']);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('car_id'),
-                Tables\Columns\TextColumn::make('customer_id'),
+                Tables\Columns\TextColumn::make('car.name')->label('Car Name'),
+                Tables\Columns\TextColumn::make('customer')->label('Customer Name')
+                    ->getStateUsing(function (Model $record) {
+                        return $record->user->username;
+                    }),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date(),
                 Tables\Columns\TextColumn::make('end_date')
                     ->date(),
-                Tables\Columns\TextColumn::make('subtotal'),
+                Tables\Columns\TextColumn::make('subtotal')
+                    ->getStateUsing(function (Model $record) {
+                        return $record->subtotal;
+                    })->money('IDR', true),
+                Tables\Columns\TextColumn::make('fine')
+                    ->getStateUsing(function (Model $record) {
+                        return $record->fine;
+                    })->money('IDR', true),
                 Tables\Columns\TextColumn::make('information'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
