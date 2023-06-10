@@ -69,9 +69,4 @@ class CategoryResource extends Resource
             'index' => Pages\ManageCategories::route('/'),
         ];
     }
-
-    protected static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->isAdmin();
-    }
 }
