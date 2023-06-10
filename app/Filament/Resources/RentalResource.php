@@ -50,22 +50,16 @@ class RentalResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('car.name')->label('Car Name'),
-                Tables\Columns\TextColumn::make('customer')->label('Customer Name')
-                    ->getStateUsing(function (Model $record) {
-                        return $record->user->username;
-                    }),
+                Tables\Columns\TextColumn::make('customer')->label('Customer Username')
+                    ->getStateUsing(fn (Model $record) => $record->user->username),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date(),
                 Tables\Columns\TextColumn::make('end_date')
                     ->date(),
                 Tables\Columns\TextColumn::make('subtotal')
-                    ->getStateUsing(function (Model $record) {
-                        return $record->subtotal;
-                    })->money('IDR', true),
+                    ->getStateUsing(fn (Model $record) => $record->subtotal)->money('IDR', true),
                 Tables\Columns\TextColumn::make('fine')
-                    ->getStateUsing(function (Model $record) {
-                        return $record->fine;
-                    })->money('IDR', true),
+                    ->getStateUsing(fn (Model $record) => $record->fine)->money('IDR', true),
                 Tables\Columns\TextColumn::make('information'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
@@ -77,6 +71,7 @@ class RentalResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -97,10 +92,5 @@ class RentalResource extends Resource
             'create' => Pages\CreateRental::route('/create'),
             'edit' => Pages\EditRental::route('/{record}/edit'),
         ];
-    }
-
-    protected static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->isAdmin();
     }
 }

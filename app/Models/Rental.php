@@ -32,7 +32,8 @@ class Rental extends Model
 
     public function getSubtotalAttribute()
     {
-        return $this->car->tariff * ($this->start_date->diffInDays($this->end_date) + 1);
+        return ($this->tariff ? $this->tariff : $this->car->tariff)
+            * ($this->start_date->diffInDays($this->end_date) + 1);
     }
 
     public function getFineAttribute()
