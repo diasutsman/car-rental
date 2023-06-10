@@ -56,20 +56,22 @@
                                             day</small>
                                     </p>
                                     <h4>Details</h4>
-                                    <p>Description: {{ str($rental->information) }}</p>
+                                    <p>Information: {{ str($rental->information) }}</p>
                                     <p>Rent start on
-                                        <strong>{{ Carbon::parse($rental->start_date)->format('d M Y') }}</strong> at <strong>{{ $rental->pickup_location }}</strong>
+                                        <strong>{{ $rental->start_date->format('d M Y') }}</strong> at
+                                        <strong>{{ $rental->pickup_location }}</strong>
                                     </p>
                                     <p>Please return before or on
-                                        <strong>{{ Carbon::parse($rental->end_date)->format('d M Y') }}</strong> at <strong>{{ $rental->return_location }}</strong>
+                                        <strong>{{ $rental->end_date->format('d M Y') }}</strong> at
+                                        <strong>{{ $rental->return_location }}</strong>
                                     </p>
                                     @php
-                                        $subtotal = (Carbon::parse($rental->start_date)->diffInDays(Carbon::parse($rental->end_date)) + 1) * intval($rental->tariff);
+                                        $subtotal = ($rental->start_date->diffInDays($rental->end_date) + 1) * intval($rental->tariff);
                                         $overtimePay = 0;
                                     @endphp
-                                    @if (Carbon::parse($rental->end_date)->diffInDays(Carbon::now()) > 0)
+                                    @if ($rental->end_date->diffInDays(now()) > 0)
                                         @php
-                                            $daysPassed = Carbon::parse($rental->end_date)->diffInDays(Carbon::now());
+                                            $daysPassed = $rental->end_date->diffInDays(now());
                                             $overtimePay = 0.1 * $subtotal * $daysPassed;
                                         @endphp
                                         <p class="text-danger font-italic">You already past {{ $daysPassed }} days from
