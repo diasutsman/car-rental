@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,6 +54,11 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'photo' => ['required', 'image', 'max:2048'],
+            'id_card_photo' => ['required', 'image', 'max:2048'],
+            'driving_license_photo' => ['required', 'image', 'max:2048'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -64,10 +70,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        Customer::create([
+            'user_id' => $user->id,
+            'photo' => $data['photo']->store('images'),
+            'id_card_photo' => $data['id_card_photo']->store('images'),
+            'driving_license_photo' => $data['driving_license_photo']->store('images'),
+            'address' => $data['address'],
+            'phone_number' => $data['phone_number'],
+        ]);
+        return $user;
     }
 }
