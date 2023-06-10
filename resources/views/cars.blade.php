@@ -39,7 +39,7 @@
                                 <div class="courses-detail">
                                     <h3><a href="{{ route('cars.index') }}">{{ str($car->size)->ucfirst() }}:
                                             {{ str($car->name)->ucfirst() }}</a></h3>
-                                    <p class="lead"><small>from</small> <strong>{{ $car->tariff }}</strong> <small>per
+                                    <p class="lead"><small>from</small> <strong>{{ money($car->tariff, 'IDR', true) }}</strong> <small>per
                                             day</small></p>
                                     <p>{{ str($car->description)->limit(56) }}</p>
                                 </div>

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('total');
             $table->text('information');
             $table->string('pickup_location');
             $table->string('return_location');

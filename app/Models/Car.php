@@ -40,9 +40,4 @@ class Car extends Model
             ],
         ];
     }
-
-    public function getTariffAttribute($value)
-    {
-        return 'Rp. ' . number_format($value,0,',','.');
-    }
 }

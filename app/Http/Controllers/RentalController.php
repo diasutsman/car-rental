@@ -31,14 +31,11 @@ class RentalController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        $total = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date)) * intval($car->tariff);
-
         Rental::create([
             'car_id' => $car->id,
             'user_id' => auth()->user()->id,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'total' => $total,
             'information' => $request->information,
             'pickup_location' => $request->pickup_location,
             'return_location' => $request->return_location,

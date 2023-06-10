@@ -14,7 +14,7 @@
         <section>
             <div class="container">
                 <div class="text-center">
-                    <h1>Cars</h1>
+                    <h1>Rentals</h1>
 
                     <br>
 
@@ -50,11 +50,30 @@
                                 <div class="courses-detail">
                                     <h3><a href="{{ route('cars.index') }}">{{ str($rental->size)->ucfirst() }}:
                                             {{ str($rental->name)->ucfirst() }}</a></h3>
-                                    <p class="lead"><small>from</small> <strong>{{ $rental->tariff }}</strong>
+                                    <p class="lead"><small>Tariff: </small>
+                                        <strong>{{ money($rental->tariff, 'IDR', true) }}</strong>
                                         <small>per
                                             day</small>
                                     </p>
-                                    <p>{{ str($rental->information) }}</p>
+                                    <h4>Details</h4>
+                                    <p>Description: {{ str($rental->information) }}</p>
+                                    <p>Rent start on
+                                        <strong>{{ Carbon::parse($rental->start_date)->format('d M Y') }}</strong>
+                                    </p>
+                                    <p>Please return before or on
+                                        <strong>{{ Carbon::parse($rental->end_date)->format('d M Y') }}</strong>
+                                    </p>
+                                    @if (Carbon::parse($rental->end_date)->isPast())
+                                        <p class="text-danger font-italic">You already past that date</p>
+                                    @endif
+
+                                    <p class="fs-4">
+                                        Total: {{ money(
+                                            (Carbon::parse($rental->start_date)->diffInDays(Carbon::parse($rental->end_date)) + 1) * intval($rental->tariff),
+                                            'IDR',
+                                            true,
+                                        ) }}
+                                    </p>
                                 </div>
 
                                 <div class="courses-info">
