@@ -12,7 +12,7 @@ class RentalController extends Controller
 {
     public function index()
     {
-        return view('rental.index', [
+        return view('rentals', [
             'rentals' => Rental::join('cars', 'rentals.car_id', '=', 'cars.id')
                 ->where('user_id', auth()->user()->id)->get(),
         ]);

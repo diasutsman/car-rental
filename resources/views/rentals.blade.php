@@ -63,16 +63,25 @@
                                     <p>Please return before or on
                                         <strong>{{ Carbon::parse($rental->end_date)->format('d M Y') }}</strong>
                                     </p>
-                                    @if (Carbon::parse($rental->end_date)->isPast())
-                                        <p class="text-danger font-italic">You already past that date</p>
+                                    @php
+                                        $subtotal = (Carbon::parse($rental->start_date)->diffInDays(Carbon::parse($rental->end_date)) + 1) * intval($rental->tariff);
+                                        $overtimePay = 0;
+                                    @endphp
+                                    @if (Carbon::parse($rental->end_date)->diffInDays(Carbon::now()) > 0)
+                                        @php
+                                            $daysPassed = Carbon::parse($rental->end_date)->diffInDays(Carbon::now());
+                                            $overtimePay = 0.1 * $subtotal * $daysPassed;
+                                        @endphp
+                                        <p class="text-danger font-italic">You already past {{ $daysPassed }} days from
+                                            that date (fine: {{ money($overtimePay, 'IDR', true) }})</p>
+                                        <p class="fs-4">
+                                            Subtotal:
+                                            {{ money($subtotal, 'IDR', true) }}
+                                        </p>
                                     @endif
-
                                     <p class="fs-4">
-                                        Total: {{ money(
-                                            (Carbon::parse($rental->start_date)->diffInDays(Carbon::parse($rental->end_date)) + 1) * intval($rental->tariff),
-                                            'IDR',
-                                            true,
-                                        ) }}
+                                        Total:
+                                        {{ money($subtotal + $overtimePay, 'IDR', true) }}
                                     </p>
                                 </div>
 

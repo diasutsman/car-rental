@@ -39,9 +39,23 @@
                                 <div class="courses-detail">
                                     <h3><a href="{{ route('cars.index') }}">{{ str($car->size)->ucfirst() }}:
                                             {{ str($car->name)->ucfirst() }}</a></h3>
-                                    <p class="lead"><small>from</small> <strong>{{ money($car->tariff, 'IDR', true) }}</strong> <small>per
-                                            day</small></p>
-                                    <p>{{ str($car->description)->limit(56) }}</p>
+                                    <p class="lead"><small>from</small>
+                                        <strong>{{ money($car->tariff, 'IDR', true) }}</strong> <small>per
+                                            day</small>
+                                    </p>
+                                    <div x-data="{ expand: false }">
+                                        <template x-if="!expand">
+                                            <p class="m-0">{{ str($car->description)->limit(56) }} <a class="btn-link"
+                                                    style="cursor: pointer;" @click="expand = true">Read
+                                                    more</a></p>
+                                        </template>
+                                        <template x-if="expand">
+                                            <p class="m-0">{{ $car->description }} <a @click="expand = false"
+                                                    style="cursor: pointer;" class="btn-link">Read
+                                                    less</a></p>
+                                        </template>
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <div class="courses-info">
