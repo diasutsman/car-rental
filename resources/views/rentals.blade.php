@@ -58,10 +58,10 @@
                                     <h4>Details</h4>
                                     <p>Description: {{ str($rental->information) }}</p>
                                     <p>Rent start on
-                                        <strong>{{ Carbon::parse($rental->start_date)->format('d M Y') }}</strong>
+                                        <strong>{{ Carbon::parse($rental->start_date)->format('d M Y') }}</strong> at <strong>{{ $rental->pickup_location }}</strong>
                                     </p>
                                     <p>Please return before or on
-                                        <strong>{{ Carbon::parse($rental->end_date)->format('d M Y') }}</strong>
+                                        <strong>{{ Carbon::parse($rental->end_date)->format('d M Y') }}</strong> at <strong>{{ $rental->return_location }}</strong>
                                     </p>
                                     @php
                                         $subtotal = (Carbon::parse($rental->start_date)->diffInDays(Carbon::parse($rental->end_date)) + 1) * intval($rental->tariff);
