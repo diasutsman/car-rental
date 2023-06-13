@@ -17,28 +17,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-nav-first">
                 <li @if (Route::is('home')) class="active" @endif><a href="{{ route('home') }}">Home</a></li>
-                <li @if (Route::is('cars')) class="active" @endif><a href="{{ route('cars.index') }}">Cars</a>
-                </li>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false">About<span class="caret"></span></a>
-
-                    <ul class="dropdown-menu">
-                        <li @if (Route::is('blogs')) class="active" @endif><a
-                                href="{{ route('blogs') }}">Blog</a></li>
-                        <li @if (Route::is('about')) class="active" @endif><a href="{{ route('about') }}">About
-                                Us</a></li>
-                        <li @if (Route::is('team')) class="active" @endif><a
-                                href="{{ route('team') }}">Team</a></li>
-                        <li @if (Route::is('testi')) class="active" @endif><a
-                                href="{{ route('testi') }}">Testimonials</a></li>
-                        <li @if (Route::is('terms')) class="active" @endif><a
-                                href="{{ route('terms') }}">Terms</a></li>
-                    </ul>
-                </li>
-                <li @if (Route::is('contact')) class="active" @endif><a href="{{ route('contact') }}">Contact
-                        Us</a></li>
+                <li @if (Route::is('cars.index')) class="active" @endif><a href="{{ route('cars.index') }}">Cars</a>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

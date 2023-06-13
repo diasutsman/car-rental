@@ -8,11 +8,9 @@ use App\Models\Rental;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\RentalResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\RentalResource\RelationManagers;
-use Illuminate\Database\Eloquent\Model;
 
 class RentalResource extends Resource
 {
@@ -61,10 +59,6 @@ class RentalResource extends Resource
                 Tables\Columns\TextColumn::make('fine')
                     ->getStateUsing(fn (Model $record) => $record->fine)->money('IDR', true),
                 Tables\Columns\TextColumn::make('information'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
             ])
             ->filters([
                 //

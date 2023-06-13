@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -51,12 +53,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'lowercase', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'photo' => ['required', 'image', 'max:2048'],
-            'id_card_photo' => ['required', 'image', 'max:2048'],
-            'driving_license_photo' => ['required', 'image', 'max:2048'],
+            'photo' => ['required', 'string'],
+            'id_card_photo' => ['required', 'string'],
+            'driving_license_photo' => ['required', 'string'],
             'address' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'max:255'],
         ]);
@@ -75,11 +77,13 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        Log::info($data);
         Customer::create([
             'user_id' => $user->id,
-            'photo' => $data['photo']->store('images'),
-            'id_card_photo' => $data['id_card_photo']->store('images'),
-            'driving_license_photo' => $data['driving_license_photo']->store('images'),
+            'photo' => Storage::putFile('photo-images', $data['photo']),
+            'id_card_photo' => Storage::putFile('id-card-images', $data['id_card_photo']),
+            'driving_license_photo' => Storage::putFile('dl-images', $data['driving_license_photo']),
             'address' => $data['address'],
             'phone_number' => $data['phone_number'],
         ]);

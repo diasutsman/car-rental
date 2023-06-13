@@ -9,11 +9,14 @@ class NavigationController extends Controller
 {
     public function home()
     {
-        return view('home');
-    }
-    
-    public function blogs()
-    {
-        return view('blogs');
+
+        return view('home', [
+            'cars' =>  Car::leftJoin('rentals', 'cars.id', '=', 'rentals.car_id')
+                ->select('cars.*')
+                ->whereNull('rentals.car_id')
+                ->latest()
+                ->limit(3)
+                ->get(),
+        ]);
     }
 }
